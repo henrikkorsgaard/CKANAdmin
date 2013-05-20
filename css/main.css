@@ -1,0 +1,82 @@
+body {
+	margin: 50px 50px auto;
+	text-align:center;
+	font-family: Monospace, Sans-serif;
+}
+
+#header {
+	text-align:left;
+	margin-bottom:25px;
+}
+
+#ckan_core {
+
+	
+}
+
+
+
+.ckan_box {
+	text-align:left;
+	padding:10px;
+	border: 1px dashed grey;
+}
+
+.ckan_box .box_title {
+	top:-18px;
+}
+
+.ckan_box p {
+	margin:10px;
+}
+
+.box_title {
+	position:relative;
+	top:-1px;
+	left:10px;
+	background: white;
+	color:grey;
+	
+}
+
+.response_wrapper {
+	overflow:hidden;
+}
+
+.response_wrapper .box_title {
+	position:relative;
+	top:-14px;
+	left:10px;
+	background: white;
+	color:grey;
+}
+
+
+.error_out {
+	min-height: 100px;
+	border: 1px solid red;
+	margin:10px;
+	padding:5px;
+	font-size: 75%;
+	display:inline;
+	float:left;
+	color:red;
+	width:40%;
+}
+.data_out {
+	min-height: 100px;
+	border: 1px solid green;
+	margin:10px;
+	padding:5px;
+	font-size: 75%;
+	display:inline;
+	float:right;
+	width:55%;
+	color:green;
+}
+
+
+input {
+	padding:2px;
+	margin:10px;
+}

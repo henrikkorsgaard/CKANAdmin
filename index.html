@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>
+			CKAN JS admin interface
+		</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="header">Amazing CKAN admin interface</div>
+		<div id="ckan_core" class="ckan_box">
+			<span class="box_title">CKAN Core information</span>
+			<p>
+				   Before start working with the CKAN API, you need to input and verify the url and the API key required for doing most of the actions provided below.
+			</p>
+			<input id="ckan_url" type="text" placeholder="CKAN site base url - E.g. http://demo.ckan.org/" size="50">
+			<input id="ckan_user" type="text" placeholder="Username" size="25">
+			<input id="apikey" type="text" placeholder="CKAN API key here" size="50">
+			<input id="core_verify" value="Verify core information" type="button"><br><input id="core_user_details" value="Get user details" type="button"><br>
+			<div class="response_wrapper">
+				<div id="ckan_core_err" class="error_out">
+					<span class="box_title">CKAN Core Error out</span>
+				</div>
+			
+				<div id="ckan_core_data" class="data_out">
+					<span class="box_title">CKAN Core Data out</span>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div id="ckan_action_get" class="ckan_box">
+			<span class="box_title">CKAN API GET</span>
+			<p>
+				Here you get an overview of the existing resources and their id's (handy for creating relations and datastore).
+			</p>
+			<input id="AAPI_get_packages" value="Get existing packages" type="button"><br>
+			<input id="XXX" value="Get existing resources" type="button"><br>
+			<div class="response_wrapper">
+				<div id="ckan_core_err" class="error_out">
+					<span class="box_title">CKAN Action API Error out</span>
+				</div>
+			
+				<div id="ckan_core_data" class="data_out">
+					<span class="box_title">CKAN Action API Data out</span>
+				</div>
+			</div>
+		</div>
+		
+		<div id="ckan_actions" class="ckan_box">
+			<span class="box_title">CKAN actions</span>
+			<p>
+				Here you can do stuff to the CKAN - create, delete and change resources
+			</p>
+			<input id="AAPI_create_package" value="Create new package" type="button"><br>
+			
+			<!-- Form responding to the needed api calls, fields and records -->
+			
+			<input id="XXX" value="Get existing resources" type="button"><br>
+			<div class="response_wrapper">
+				<div id="ckan_core_err" class="error_out">
+					<span class="box_title">CKAN Action API Error out</span>
+				</div>
+
+				<div id="ckan_core_data" class="data_out">
+					<span class="box_title">CKAN Action API Data out</span>
+				</div>
+			</div>
+		</div>
+		
+<script src="js/jq1.9.js" type="text/javascript"></script>
+<script src="js/json2.js" type="text/javascript"></script>
+<script src="js/CKANapi.js" type="text/javascript"></script>
+<script src="js/CKANajax.js" type="text/javascript"></script>
+<script src="js/CKANadmin.js" type="text/javascript"></script>
+	</body>
+</html>
