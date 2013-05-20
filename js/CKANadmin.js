@@ -41,9 +41,23 @@ $(document).ready(function() {
 		var url = $('#ckan_url').val();
 		var user = $('#ckan_user').val();
 		verify_core(key, url, user);
-		
 	});
-		
+
+    $('#get_packages').on('click', function(){
+        $('#ckan_get_data p').remove();
+        $('#ckan_get_err p').remove();
+    });
+
+    $('#get_packages').on('click', function(){
+        $('#ckan_get_data p').remove();
+        $('#ckan_get_err p').remove();
+    });
+
+    $('#get_packages').on('click', function(){
+        $('#ckan_get_data p').remove();
+        $('#ckan_get_err p').remove();
+    });
+
 });
 
 /**
@@ -59,14 +73,37 @@ $(document).ready(function() {
 
 function verify_core(apikey, url, user){
 
-	site_read(url, function(msg){
+	status_show(url, function(msg){
 		if(msg.success){
-			$('#ckan_core_data').append("<p>CKAN site responds ok </p>");
+			$('#ckan_core_data').append("<p>CKAN site responds ok. CKAN version: "+
+                msg.message.result.ckan_version +". Available extensions: " +
+           msg.message.result.extensions +".</p>");
 
             am_following_user(url, user, apikey, function(msg){
 
                 if(msg.success){
-                    $('#ckan_core_data').append("<p>User is valid</p><p>Api key is valid</p>");
+
+                    organization_list_for_user(url, user, apikey,function(msg){
+                        if(msg.success){
+
+                            $('#ckan_core_data').append("<p>User is valid. User can edit the following organisations: ");
+
+                            $.each(msg.message, function(key){
+                                if(key != 0){
+                                    $('#ckan_core_data').append(", "+msg.message[key].name);
+                                }
+                                else{
+                                    $('#ckan_core_data').append(msg.message[key].name);
+                                }
+                            });
+                            $('#ckan_core_data').append("</p>");
+                        }
+                        else{
+                            $('#ckan_core_data').append("<p>User is valid</p><p>Api key is valid</p>");
+                        }
+
+                    });
+                    $('#ckan_core_data').append("<p>Api key is valid</p>");
                 }
                 else if(!msg.success){
                     if(msg.message.error.__type === "Validation Error"){
@@ -88,4 +125,8 @@ function verify_core(apikey, url, user){
 			$('#ckan_core_err').append("<p>CKAN url does not respond properly. May the CKAN site is down or the url is invalid</p><p>No possible to verify the user or api key</p>");
 		}
 	});
+}
+
+function get_user_details(apikey, url, user){
+
 }

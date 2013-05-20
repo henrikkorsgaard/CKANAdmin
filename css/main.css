@@ -23,21 +23,20 @@ body {
 }
 
 .ckan_box .box_title {
+    position:relative;
 	top:-18px;
+    left:10px;
+    padding: 0px 10px;
+    background: white;
+    color:grey;
+}
 }
 
 .ckan_box p {
 	margin:10px;
 }
 
-.box_title {
-	position:relative;
-	top:-1px;
-	left:10px;
-	background: white;
-	color:grey;
-	
-}
+
 
 .response_wrapper {
 	overflow:hidden;
@@ -45,10 +44,11 @@ body {
 
 .response_wrapper .box_title {
 	position:relative;
-	top:-14px;
+	top:-17px;
 	left:10px;
 	background: white;
-	color:grey;
+    padding: 0px 10px;
+
 }
 
 
@@ -56,7 +56,7 @@ body {
 	min-height: 100px;
 	border: 1px solid red;
 	margin:10px;
-	padding:5px;
+	padding:10px;
 	font-size: 75%;
 	display:inline;
 	float:left;
@@ -67,14 +67,21 @@ body {
 	min-height: 100px;
 	border: 1px solid green;
 	margin:10px;
-	padding:5px;
+	padding:10px;
 	font-size: 75%;
 	display:inline;
 	float:right;
-	width:55%;
+	width:50%;
 	color:green;
 }
 
+.error_out p {
+    margin: 0px 0px 5px 0px;
+}
+
+.data_out p{
+    margin: 0px 0px 5px 0px;
+}
 
 input {
 	padding:2px;

@@ -59,14 +59,14 @@ function action_get_with_key(full_url, json_data, apikey, callback){
 	});
 	
 	ajax.done(function(msg) {
-		response = {"success":true, "message":[msg]};
+		response = {"success":true, "message":msg.result};
 	
 		callback(response);
 	});
 	
 	ajax.fail(function(jqXHR) {
 		
-		response = {"success":false, "message":JSON.parse(jqXHR.responseText)};
+		response = {"success":false, "message":jqXHR.responseText};
 		callback(response);
 	});
 }
@@ -97,14 +97,14 @@ function action_post(full_url, json_data, apikey, callback){
 	});
 	
 	ajax.done(function(msg) {
-		response = {"success":true, "message":[msg]};
+		response = {"success":true, "message":msg};
 	
 		callback(response);
 	});
 	
 	ajax.fail(function(jqXHR) {
 		
-		response = {"success":false, "message":JSON.parse(jqXHR.responseText)};
+		response = {"success":false, "message":jqXHR.responseText};
 		callback(response);
 	});
 }

@@ -46,7 +46,28 @@
 
 
 function site_read(base_url, callback){
-	action_get(base_url+"/api/3/action/site_read", "", callback)
+	action_get(base_url+"/api/3/action/site_read", "", callback);
+}
+
+/**
+ * Calls the status_show funtion in the CKAN api
+ * @param {String} base_url The base url of the CKAN instance.
+ * @param {function} callback  A function used to provide the json object from the CKAN instance to the function caller.
+ * @return {json}   Returns a json object through the provided callback function, with CKAN site information
+ */
+
+function status_show(base_url, callback){
+
+    action_get(base_url+"/api/3/action/status_show", "", callback);
+}
+
+function user_show(base_url, user, callback){
+    var json_data = {"id": user};
+    action_get(base_url+"/api/3/action/user_show", json_data, callback)
+}
+
+function organization_list_for_user(base_url, user, apikey, callback){
+    action_get_with_key(base_url+"/api/3/action/organization_list_for_user", "", apikey, callback);
 }
 
 /**
@@ -64,4 +85,5 @@ function am_following_user(base_url, user, apikey, callback){
 	action_get_with_key(base_url+"/api/3/action/am_following_user", json_data, apikey, callback)
 	
 }
+
 
