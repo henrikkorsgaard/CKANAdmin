@@ -159,7 +159,7 @@ function action_get(full_url, json_data, callback){
 
 
 /**
- * Calls a given CKAN datastore API through the GET method.
+ * Calls a given CKAN datastore API through the GET method.s
  *
  */
 
