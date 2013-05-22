@@ -35,8 +35,7 @@
 $(document).ready(function() {
 	
 	$('#core_verify').on('click', function(){
-		$('#ckan_core_data p').remove();
-		$('#ckan_core_err p').remove();
+
 		var key = $('#apikey').val();
 		var url = $('#ckan_url').val();
 		var user = $('#ckan_user').val();
@@ -44,18 +43,37 @@ $(document).ready(function() {
 	});
 
     $('#get_packages').on('click', function(){
-        $('#ckan_get_data p').remove();
-        $('#ckan_get_err p').remove();
+
     });
 
     $('#get_packages').on('click', function(){
-        $('#ckan_get_data p').remove();
-        $('#ckan_get_err p').remove();
+
     });
 
     $('#get_packages').on('click', function(){
-        $('#ckan_get_data p').remove();
-        $('#ckan_get_err p').remove();
+
+    });
+
+    $('#clear_console').on('click', function(){
+        $('#output').empty();
+    });
+
+    $('#minimize').on('click', function(){
+        if($('#minimize').text() === "Minimize"){
+            $('#floating_footer').animate({
+                height: 30
+            }, 500, function(){
+                $('#minimize').text("Maximize");
+            });
+        }
+        else if($('#minimize').text() === "Maximize"){
+            $('#floating_footer').animate({
+                height: 180
+            }, 500, function(){
+                $('#minimize').text("Minimize");
+            });
+        }
+
     });
 
 });
@@ -75,7 +93,7 @@ function verify_core(apikey, url, user){
 
 	status_show(url, function(msg){
 		if(msg.success){
-			$('#ckan_core_data').append("<p>CKAN site responds ok. CKAN version: "+
+			appendConsole("<p>CKAN site responds ok. CKAN version: "+
                 msg.message.result.ckan_version +". Available extensions: " +
            msg.message.result.extensions +".</p>");
 
@@ -86,47 +104,54 @@ function verify_core(apikey, url, user){
                     organization_list_for_user(url, user, apikey,function(msg){
                         if(msg.success){
 
-                            $('#ckan_core_data').append("<p>User is valid. User can edit the following organisations: ");
+                            appendConsole("<p>User is valid. User can edit the following organisations: ");
 
                             $.each(msg.message, function(key){
                                 if(key != 0){
-                                    $('#ckan_core_data').append(", "+msg.message[key].name);
+                                    appendConsole(", "+msg.message[key].name);
                                 }
                                 else{
-                                    $('#ckan_core_data').append(msg.message[key].name);
+                                    appendConsole(msg.message[key].name);
                                 }
                             });
-                            $('#ckan_core_data').append("</p>");
+                            appendConsole("</p>");
                         }
                         else{
-                            $('#ckan_core_data').append("<p>User is valid</p><p>Api key is valid</p>");
+                            appendConsole("<p>User is valid</p><p>Api key is valid</p>");
                         }
 
                     });
-                    $('#ckan_core_data').append("<p>Api key is valid</p>");
+                    $('##output').append("<p>Api key is valid</p>");
                 }
                 else if(!msg.success){
+
                     if(msg.message.error.__type === "Validation Error"){
                         //USER ID IS NOT EXISTING
-                        $('#ckan_core_err').append("<p>The provided username does not exist, and therefor it is impossible to validate api key</p>");
+                        appendConsole("<p>ERROR: The provided username does not exist, and therefor it is impossible to validate api key</p>");
                     }
                     else if(msg.message.error.__type === "Authorization Error"){
-                        $('#ckan_core_err').append("<p>Api key is invalid!</p>");
-                        $('#ckan_core_data').append("<p>User is valid</p>");
+                        appendConsole("<p>ERROR: Api key is invalid!</p>");
+
+                        appendConsole("<p>ERROR: User is valid</p>");
                     }
                     else{
-                        $('#ckan_core_err').append("<p>CKAN returned something unexpected. CKAN response: "+msg.message+"</p>");
+                        $('#output').append("<p>ERROR: CKAN returned something unexpected. CKAN response: "+msg.message+"</p>");
                     }
 
                 }
             });
 		}
 		else if(!msg.success){
-			$('#ckan_core_err').append("<p>CKAN url does not respond properly. May the CKAN site is down or the url is invalid</p><p>No possible to verify the user or api key</p>");
+			appendConsole("<p>ERROR: CKAN url does not respond properly. May the CKAN site is down or the url is invalid</p><p>Not possible to verify the user or api key</p>");
 		}
 	});
 }
 
 function get_user_details(apikey, url, user){
 
+}
+
+function appendConsole(msg){
+    $('#output').append(msg);
+    $('#output').scrollTop($('#output')[0].scrollHeight);
 }

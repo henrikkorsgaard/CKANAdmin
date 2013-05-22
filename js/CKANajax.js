@@ -66,7 +66,7 @@ function action_get_with_key(full_url, json_data, apikey, callback){
 	
 	ajax.fail(function(jqXHR) {
 		
-		response = {"success":false, "message":jqXHR.responseText};
+		response = {"success":false, "message":JSON.parse(jqXHR.responseText)};
 		callback(response);
 	});
 }
@@ -104,7 +104,7 @@ function action_post(full_url, json_data, apikey, callback){
 	
 	ajax.fail(function(jqXHR) {
 		
-		response = {"success":false, "message":jqXHR.responseText};
+		response = {"success":false, "message":JSON.parse(jqXHR.responseText)};
 		callback(response);
 	});
 }
