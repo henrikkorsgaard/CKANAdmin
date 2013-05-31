@@ -42,20 +42,124 @@ $(document).ready(function() {
 		verify_core(key, url, user);
 	});
 
+    $('#get_organisations').on('click', function(){
+        var url = $('#ckan_url').val();
+        organization_list(url, true, function(msg){
+
+            if(msg.success){
+                $('#get_output .output').append("Organisations: <br />");
+                $.each(msg.message.result,function(key){
+                    var name = msg.message.result[key].display_name;
+                    var id = msg.message.result[key].id;
+                    var packages = msg.message.result[key].packages;
+                    var ref_name = msg.message.result[key].name;
+
+                    var output = "Name: "+name+"<ul><li>Id: "+id+"</li><li>Packages no.: "+packages+"</li><li>Reference Name: "+ref_name+"</li></ul>";
+                    $('#get_output .output').append(output);
+                    console.log(msg.message.result[key]);
+                });
+
+            }
+            else if(!msg.success){
+                appendConsole("Error from organisation list");
+            }
+        });
+    });
+
+    $('#get_groups').on('click', function(){
+        var url = $('#ckan_url').val();
+         group_list(url, true, function(msg){
+             if(msg.success){
+                 $('#get_output .output').append("Groups: <br />");
+                 $.each(msg.message.result,function(key){
+                     var name = msg.message.result[key].display_name;
+                     var id = msg.message.result[key].id;
+                     var packages = msg.message.result[key].packages;
+
+
+                     var output = "Name: "+name+"<ul><li>Id: "+id+"</li><li>Packages no.: "+packages+"</li></ul>";
+                     $('#get_output .output').append(output);
+                     console.log(msg.message.result[key]);
+                 });
+
+             }
+             else if(!msg.success){
+                 appendConsole("Error from group list");
+             }
+         });
+    });
+    //UNFINISHED
     $('#get_packages').on('click', function(){
+        var url = $('#ckan_url').val();
+
+        current_package_list_with_resources(url, function(msg){
+            if(msg.success){
+                $('#get_output .output').append("Packages: <br />");
+                $.each(msg.message.result,function(key){
+                    var name = msg.message.result[key].title;
+                    var id = msg.message.result[key].id;
+                    var recources = msg.message.result[key].resources.length;
+
+                    var output = "Name: "+name+"<ul><li>Id: "+id+"</li><li>Resources no.: "+recources+"</li></ul>";
+                    $('#get_output .output').append(output);
+
+                });
+
+            }
+            else if(!msg.success){
+                appendConsole("Error from package list");
+            }
+        });
 
     });
 
-    $('#get_packages').on('click', function(){
+    $('#get_resources').on('click', function(){
 
     });
 
-    $('#get_packages').on('click', function(){
+    $('#api_search').on('click', function(){
 
     });
 
-    $('#clear_console').on('click', function(){
-        $('#output').empty();
+    $('#create_package').on('click', function(){
+        var key = $('#apikey').val();
+        var url = $('#ckan_url').val();
+        var name = $('#package_name').val();
+        var author = $('#package_author').val();
+        var org = $('#package_org').val();
+
+        package_create(url, key, name, author, org, function(msg){
+            console.log(msg);
+
+            if(msg.success){
+                var output = "Successfully created a new dataset: <br /> ";
+
+                var name = msg.message.result.name
+                var id = msg.message.result.id;
+
+                output += "<ul><li>Name: "+name+"</li><li>Id: "+id+"</li></ul>";
+                $('#create_output .output').append(output);
+
+            }
+            else if(!msg.success){
+                if(msg.message.error.__type === "Validation Error"){
+                    //USER ID IS NOT EXISTING
+                    appendConsole("<p>ERROR: Unable to create ned ressource "+msg.message.error.name+"</p>");
+                }
+                else if(msg.message.error.__type === "Authorization Error"){
+                    appendConsole("<p>ERROR: Api key is invalid!</p>");
+                }
+                else{
+                    appendConsole("<p>ERROR: CKAN returned something unexpected. CKAN response: "+msg.message+"</p>");
+                }
+            }
+        });
+
+    });
+
+    $('.clear').on('click', function(event){
+        $(this).parent().find('.output').empty();
+
     });
 
     $('#minimize').on('click', function(){
@@ -88,6 +192,7 @@ $(document).ready(function() {
  * @param {String} url    The CKAN base url for verification.
  * @param {String} user    The CKAN username for verification.
  */
+
 
 function verify_core(apikey, url, user){
 
@@ -135,7 +240,7 @@ function verify_core(apikey, url, user){
                         appendConsole("<p>ERROR: User is valid</p>");
                     }
                     else{
-                        $('#output').append("<p>ERROR: CKAN returned something unexpected. CKAN response: "+msg.message+"</p>");
+                        appendConsole("<p>ERROR: CKAN returned something unexpected. CKAN response: "+msg.message+"</p>");
                     }
 
                 }
@@ -152,6 +257,12 @@ function get_user_details(apikey, url, user){
 }
 
 function appendConsole(msg){
-    $('#output').append(msg);
-    $('#output').scrollTop($('#output')[0].scrollHeight);
+    if($('#minimize').text() === "Maximize"){
+        $('#minimize').click();
+    }
+
+
+
+    $('#console_output').append(msg);
+    $('#console_output').scrollTop($('#console_output')[0].scrollHeight);
 }

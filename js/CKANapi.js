@@ -63,11 +63,37 @@ function status_show(base_url, callback){
 
 function user_show(base_url, user, callback){
     var json_data = {"id": user};
-    action_get(base_url+"/api/3/action/user_show", json_data, callback)
+    action_get(base_url+"/api/3/action/user_show", json_data, callback);
 }
 
 function organization_list_for_user(base_url, user, apikey, callback){
     action_get_with_key(base_url+"/api/3/action/organization_list_for_user", "", apikey, callback);
+}
+
+function organization_list(base_url, full_info_boolean, callback){
+    var json_data = {"all_fields":full_info_boolean}
+
+    action_get(base_url+"/api/3/action/organization_list",json_data, callback);
+}
+
+function group_list(base_url, full_info_boolean, callback){
+    var json_data = {"all_fields":full_info_boolean};
+
+    action_get(base_url+"/api/3/action/group_list",json_data, callback);
+}
+
+function current_package_list_with_resources(base_url, callback){
+    action_get(base_url+"/api/3/action/current_package_list_with_resources","", callback);
+}
+
+function licence_list(base_url, callback){
+    action_get(base_url+"/api/3/action/licence_list","", callback);
+}
+
+function package_create(base_url, key, name, author, org,  callback){
+    var json_data = {"name":name, "author":author, "owner_org":org};
+    json_data = JSON.stringify(json_data);
+    action_post(base_url+"/api/3/action/package_create", json_data, key, callback);
 }
 
 /**

@@ -1,82 +1,99 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
-	<head>
-		<title>
-			CKAN JS admin interface
-		</title>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<div id="header" class="ckan_box">Amazing CKAN admin interface</div>
-		<div id="ckan_core" class="ckan_box">
-			<span class="box_title">CKAN Core information</span>
-			<p>
-				   Before start working with the CKAN API, you need to input and verify the url and the API key required for doing most of the actions provided below.
-			</p>
-			<input id="ckan_url" type="text" placeholder="CKAN site base url - E.g. http://demo.ckan.org/" size="50">
-			<input id="ckan_user" type="text" placeholder="Username" size="25">
-			<input id="apikey" type="text" placeholder="CKAN API key here" size="50">
-			<input id="core_verify" value="Verify core information" type="button"><br>
+<head>
+    <title>
+        CKAN JS admin interface
+    </title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="header" class="ckan_box">Amazing CKAN admin interface - Henrik Korsgaard</div>
+<div id="ckan_core" class="ckan_box">
+    <span class="box_title">CKAN Core information</span>
+    <p>
+        Before start working with the CKAN API, you need to input and verify the url and the API key required for doing most of the actions provided below.
+    </p>
+    <input id="ckan_url" type="text" placeholder="CKAN site base url - E.g. http://demo.ckan.org/" size="50">
+    <input id="ckan_user" type="text" placeholder="Username" size="25">
+    <input id="apikey" type="text" placeholder="CKAN API key here" size="50">
+    <input id="core_verify" value="Verify core information" type="button"><br>
 
-		</div>
+</div>
 
-		<div id="ckan_action_get" class="ckan_box">
-			<span class="box_title">CKAN API GET</span>
-			<p>
-				Here you get an overview of the existing resources and their id's (handy for creating relations and datastore)
-                and search specific resources.
-			</p>
-			<input id="get_packages" value="Get existing packages" type="button"><input id="get_resources" value="Get existing resources" type="button"><br>
-            <input id="search" type="text" placeholder="Search specific resource or dataset" size="50"><input id="api_search" value="Verify core information" type="button"><br>
-			<div class="response_wrapper">
-				<div id="ckan_get_err" class="error_out">
-					<span class="box_title">CKAN Action API Error out</span>
-				</div>
-			
-				<div id="ckan_get_data" class="data_out">
-					<span class="box_title">CKAN Action API Data out</span>
-				</div>
-			</div>
-		</div>
-		<br />
-		<div id="ckan_actions" class="ckan_box">
-			<span class="box_title">CKAN actions</span>
-			<p>
-				Here you can do stuff to the CKAN - create, delete and change resources
-			</p>
-			<div id="create_package_form">
-                <input id="create_package" value="Create new package" type="button"><br>
+<div id="ckan_action_get" class="ckan_box">
+    <span class="box_title">CKAN API GET</span>
+    <div class="ckan_box_wrapper">
+    <div class="left">
+        <p>
+            Here you get an overview of the existing resources and their id's (handy for creating relations and datastore)
+            and search specific resources.
+        </p>
+        <input id="get_organisations" value="Get existing organisations" type="button"><input id="get_groups" value="Get existing groups" type="button"><br>
+        <input id="get_packages" value="Get existing packages" type="button"><input id="get_resources" value="Get existing resources" type="button"><br>
+        <input id="search" type="text" placeholder="Search specific resource or dataset" size="30"><input id="api_search" value="Search specific resource" type="button"><br>
+
+    </div>
+    <div id="get_output" class="right">
+        <div class="clear output_button">Clear</div>
+        <div class="output"></div>
+    </div>
+    </div>
+</div>
+</div>
+
+<div id="ckan_actions" class="ckan_box">
+    <span class="box_title">CKAN create actions</span>
+    <div class="ckan_box_wrapper">
+    <div class="left">
+    <p>
+        Here you can do stuff to the CKAN - create, delete and change resources
+    </p>
+
+    <div id="create_package_form" class="ckan_inner_box">
+
+        <input id="package_name"  type="text" placeholder="Package name" size="20">
+        <input id="package_author"  type="text" placeholder="Package author" size="20">
+        <input id="package_org"  type="text" placeholder="Package organisation" size="20">
+        <input id="create_package" value="Create new package" type="button"><br />
+
+        <!-- Form responding to the needed api calls, fields and records -->
+    </div>
+    <div id="create_dsresource_form" class="ckan_inner_box">
+        <input id="existing_resource"  type="text" placeholder="Dataset to add to" size="20">
+        <input id="ds_fields"  type="text" placeholder="Fields as json" size="50">
+        <input id="create_dsresource" value="Create new resource in Datastore" type="button"><br>
+    </div>
+    <!-- Form responding to the needed api calls, fields and records -->
+
+    <input id="resource_name" type="text" placeholder="Write name of resource" size="50"><input id="get_json" value="Get JSON schema" type="button"><br>
+    </div>
+        <div id="create_output" class="right">
+        <div class="clear output_button">Clear</div>
+        <div class="output"></div>
+        </div>
+    </div>
+</div>
 
 
-			<!-- Form responding to the needed api calls, fields and records -->
-			</div>
-			<input id="create_resource" value="Create new resource" type="button"><br>
 
-            <!-- Form responding to the needed api calls, fields and records -->
+<br />
+<br />
+<br />
+<br />
+<br />
 
-            <input id="resource_name" type="text" placeholder="Write name of resource" size="50"><input id="get_json" value="Get JSON schema" type="button"><br>
 
-			<div class="response_wrapper">
-				<div id="ckan_action_err" class="error_out">
-					<span class="box_title">CKAN Action API Error out</span>
-				</div>
+<div id="floating_footer">
+    <span id="console_header">CKAN output console:</span><div id="minimize" class="console_button">Maximize</div><div id="clear_console" class="clear console_button">Clear</div>
+    <div id="console_output" class="output">
 
-				<div id="ckan_action_data" class="data_out">
-					<span class="box_title">CKAN Action API Data out</span>
-				</div>
-			</div>
-		</div>
-		<div id="floating_footer">
-            CKAN output console: <div id="minimize" class="console_button">Minimize</div><div id="clear_console" class="console_button">Clear</div>
-            <div id="output" >
-
-            </div>
-		</div>
-<script src="js/jq1.9.js" type="text/javascript"></script>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="js/json2.js" type="text/javascript"></script>
 <script src="js/CKANapi.js" type="text/javascript"></script>
 <script src="js/CKANajax.js" type="text/javascript"></script>
 <script src="js/CKANadmin.js" type="text/javascript"></script>
-	</body>
+</body>
 </html>
